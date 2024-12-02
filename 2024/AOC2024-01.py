@@ -2,22 +2,26 @@ import pandas as pd
 
 
 def main():
-    df = pd.read_csv("./AOC2024-01_input.py", sep="   ", engine='python')
-    df.columns= ["left", "right"]
-    dfc = df.copy()
+    df = open("./AOC2024-01_input.py").read().strip()
+    lines = df.split('\n')
+    
+    LL = []
+    RR = []
 
-    dfc.sort_values(by=['left'], ascending=True, inplace=True)
-    df.sort_values(by=['right'], ascending=True, inplace=True)
-    print(df)
-    print(dfc)
+    for line in lines:
+        L,R = line.split()
+        L,R = int(L), int(R)
+        LL.append(L)
+        RR.append(R)
 
-    df['left'] = dfc['left'].values
-    print(df)
-    diff = 0
-    for index, row in df.iterrows():
-        diff += abs(row['left'] - row['right'])
-    print(diff)
+    LL = sorted(LL)
+    RR = sorted(RR)
 
+    ans = 0
+    for l,r in zip(LL,RR):
+        ans += abs(l - r)
+
+    print(ans)
 
 if __name__ == "__main__":
     main()

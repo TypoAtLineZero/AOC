@@ -10,14 +10,20 @@ int main ( ) {
     inputfile.close();
 
     int balance = 0;
+	int position = 0;
     for (char c : input) {
-        if (c == '()') {
+        if (c == '(') {
             balance += 1;
+		    ++position;
         } else if (c == ')') {
             balance -= 1;
+			++position;
         } else {
             std::cerr << "Invalid character: " << c << std::endl;
         }
+		if (balance == -1) {
+				std::cout << "Reaching floor -1 at: " << position << std::endl;
+		}
     }
 
     std::cout << "Balance: " << balance << '\n';

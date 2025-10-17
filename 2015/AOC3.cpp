@@ -33,14 +33,15 @@ int main() {
 		    }
 	}
 
-
-	//std::cout << "Printing a 2D Array:\n";
-    //for (i = 0; i < 4; i++) {
-    //    for (j = 0; j < 2; j++) {
-	//			std::cout << "\t" << arr[i][j];
-    //    }
-	//	std::cout << std::endl;
-    //}
+	int counter = 0;
+    for (int ii = 0; ii < 500; ii++) {
+        for (int jj = 0; jj < 500; jj++) {
+		    if (arr[ii][jj] == 1) {
+				++counter;
+		    }
+        }
+    }
     
-    return 0;
+	std::cout << "fields: " << counter << std::endl;
+	return 0;
 }

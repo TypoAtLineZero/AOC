@@ -11,13 +11,28 @@ int main() {
     }
 
     int arr[1000][1000] = {0};
-    std::string line;
+    arr[500][500] = 1;
+	std::string line;
 
 	while (getline(file, line)) {
 			std::cout << line << std::endl;
+
+		    int i, j = 500;
+		    arr[i][j] = 1;
+			
+			if (line.compare("^") == 0) {
+					++i;
+			} else if (line.compare("v") == 0) {
+					--i;
+			} else if (line.compare(">") == 0) {
+					++j;
+			} else if (line.compare("<") == 0) {
+					--j;
+			} else {
+					std::cout << "Wrong character" << std::endl;
+		    }
 	}
 
-    //int i, j;
 
 	//std::cout << "Printing a 2D Array:\n";
     //for (i = 0; i < 4; i++) {

@@ -15,27 +15,33 @@ int main() {
 	std::string line;
 
 	while (getline(file, line)) {
-			std::cout << line << std::endl;
+			//std::cout << line << std::endl;
 
 		    int i, j = 500;
 		    arr[i][j] = 1;
 			
 			if (line.compare("^") == 0) {
 					++i;
+					std::cout << "a" << std::endl;
 			} else if (line.compare("v") == 0) {
 					--i;
+					std::cout << "b" << std::endl;
 			} else if (line.compare(">") == 0) {
 					++j;
+					std::cout << "c" << std::endl;
 			} else if (line.compare("<") == 0) {
 					--j;
+					std::cout << "d" << std::endl;
 			} else {
 					std::cout << "Wrong character" << std::endl;
 		    }
+
+			arr[i][j] = 1;
 	}
 
 	int counter = 0;
-    for (int ii = 0; ii < 500; ii++) {
-        for (int jj = 0; jj < 500; jj++) {
+    for (int ii = 0; ii < 500; ++ii) {
+        for (int jj = 0; jj < 500; ++jj) {
 		    if (arr[ii][jj] == 1) {
 				++counter;
 		    }

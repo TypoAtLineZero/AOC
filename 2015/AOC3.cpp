@@ -11,7 +11,7 @@ int main() {
     }
 
     int arr[1000][1000] = {0};
-    arr[500][500] = 1;
+    //arr[500][500] = 1;
 	std::string line;
 
 	while (getline(file, line)) {
@@ -19,7 +19,9 @@ int main() {
 
 		    int i, j = 500;
 		    arr[i][j] = 1;
-			
+				
+			std::cout << "line: " << line << std::endl;
+
 			if (line.compare("^") == 0) {
 					++i;
 					std::cout << "a" << std::endl;
@@ -33,7 +35,8 @@ int main() {
 					--j;
 					std::cout << "d" << std::endl;
 			} else {
-					std::cout << "Wrong character" << std::endl;
+					//std::cout << "Wrong character" << std::endl;
+					std::cout << "Reached end" << std::endl;
 		    }
 
 			arr[i][j] = 1;

@@ -1,13 +1,30 @@
 #include <iostream>
 #include <fstream>
+#include <iterator>
+#include <vector>
 
 int main() {
 	std::string filename="AOC3_input";
+//
+//	std::ifstream file(filename);
+//    if (!file.is_open()) {
+//			std::cerr << "Error opening the file." << std::endl;
+//        return 1;
+//    }
+    
+    std::vector<char> file_contents;
+    std::ifstream file(filename);
+    std::istreambuf_iterator<char> file_iterator(file);
+    std::istreambuf_iterator<char> end_of_file;
 
-	std::ifstream file(filename);
-    if (!file.is_open()) {
-			std::cerr << "Error opening the file." << std::endl;
-        return 1;
+    std::copy(file_iterator, end_of_file, std::back_inserter(file_contents));
+
+//    std::cout << "first: " << *file_iterator << std::endl;
+//    ++file_iterator;
+//    std::cout << "second: " << *file_iterator << std::endl;
+
+    for (const int& i : file_contents) {
+        std::cout << "i: " << i << std::endl;
     }
 
     int arr[1000][1000] = {0};
@@ -20,7 +37,7 @@ int main() {
 		    int i, j = 500;
 		    arr[i][j] = 1;
 				
-			std::cout << "line: " << line << std::endl;
+//			std::cout << "line: " << line << std::endl;
 
 			if (line.compare("^") == 0) {
 					++i;

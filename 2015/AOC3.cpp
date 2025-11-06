@@ -5,12 +5,6 @@
 
 int main() {
 	std::string filename="AOC3_input";
-//
-//	std::ifstream file(filename);
-//    if (!file.is_open()) {
-//			std::cerr << "Error opening the file." << std::endl;
-//        return 1;
-//    }
     
     std::vector<char> file_contents;
     std::ifstream file(filename);
@@ -20,35 +14,37 @@ int main() {
     std::copy(file_iterator, end_of_file, std::back_inserter(file_contents));
 
     int arr[1000][1000] = {0};
-	int i, j = 500;
+	int i = 500;
+    int j = 500;
+    std::cout << i  << j << std::endl;
 	arr[i][j] = 1;
     
-    for (const int& i : file_contents) {
-        std::cout << "i: " << i << std::endl;
+    for (const int& ii : file_contents) {
+        //std::cout << "ii: " << ii << std::endl;
 
-        if (line.compare("^") == 0) {
-				++i;
-				std::cout << "a" << std::endl;
-		} else if (line.compare("v") == 0) {
+        // < - 60
+        // > - 62
+        // ^ - 94
+        // V - 118
+        if (ii == 60) {
 				--i;
-				std::cout << "b" << std::endl;
-		} else if (line.compare(">") == 0) {
-				++j;
-				std::cout << "c" << std::endl;
-		} else if (line.compare("<") == 0) {
+		} else if (ii == 62) {
+				++i;
+		} else if (ii == 94) {
 				--j;
-				std::cout << "d" << std::endl;
+		} else if (ii == 118) {
+				++j;
 		} else {
-				//std::cout << "Wrong character" << std::endl;
 				std::cout << "Reached end" << std::endl;
+                break;
 		}
 
 		arr[i][j] = 1;
 	}
 
 	int counter = 0;
-    for (int ii = 0; ii < 500; ++ii) {
-        for (int jj = 0; jj < 500; ++jj) {
+    for (int ii = 0; ii < 1000; ++ii) {
+        for (int jj = 0; jj < 1000; ++jj) {
 		    if (arr[ii][jj] == 1) {
 				++counter;
 		    }

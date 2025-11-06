@@ -19,44 +19,31 @@ int main() {
 
     std::copy(file_iterator, end_of_file, std::back_inserter(file_contents));
 
-//    std::cout << "first: " << *file_iterator << std::endl;
-//    ++file_iterator;
-//    std::cout << "second: " << *file_iterator << std::endl;
-
+    int arr[1000][1000] = {0};
+	int i, j = 500;
+	arr[i][j] = 1;
+    
     for (const int& i : file_contents) {
         std::cout << "i: " << i << std::endl;
-    }
 
-    int arr[1000][1000] = {0};
-    //arr[500][500] = 1;
-	std::string line;
+        if (line.compare("^") == 0) {
+				++i;
+				std::cout << "a" << std::endl;
+		} else if (line.compare("v") == 0) {
+				--i;
+				std::cout << "b" << std::endl;
+		} else if (line.compare(">") == 0) {
+				++j;
+				std::cout << "c" << std::endl;
+		} else if (line.compare("<") == 0) {
+				--j;
+				std::cout << "d" << std::endl;
+		} else {
+				//std::cout << "Wrong character" << std::endl;
+				std::cout << "Reached end" << std::endl;
+		}
 
-	while (getline(file, line)) {
-			//std::cout << line << std::endl;
-
-		    int i, j = 500;
-		    arr[i][j] = 1;
-				
-//			std::cout << "line: " << line << std::endl;
-
-			if (line.compare("^") == 0) {
-					++i;
-					std::cout << "a" << std::endl;
-			} else if (line.compare("v") == 0) {
-					--i;
-					std::cout << "b" << std::endl;
-			} else if (line.compare(">") == 0) {
-					++j;
-					std::cout << "c" << std::endl;
-			} else if (line.compare("<") == 0) {
-					--j;
-					std::cout << "d" << std::endl;
-			} else {
-					//std::cout << "Wrong character" << std::endl;
-					std::cout << "Reached end" << std::endl;
-		    }
-
-			arr[i][j] = 1;
+		arr[i][j] = 1;
 	}
 
 	int counter = 0;

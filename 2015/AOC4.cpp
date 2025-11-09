@@ -7,29 +7,30 @@
 
 int main() {
 	std::string hash_pre = "yzbqklnj";
-    // hash_pre + 000000
     std::string smallest_hash = "c6404eeb31cf4da2e4b224ebc03aea10";
-    //std::string smallest_hash = "c0bb7d0da218980856cdfc89a67c1669";
     std::cout << "smallest: " << std::stoi(smallest_hash, 0, 64) << std::endl;
+    int j;
 
-    for ( int i = 0; i < 11; ++i) {
+    for ( int i = 0; i < 1000000; ++i) {
         auto s = std::to_string(i);
 
         if ( int(s.size()) < 6 ) {
-        //if ( s.size() < 6 ) {
             s.insert(0, 6 - s.size(), '0');
         }
 
         std::string hash_str = hash_pre + s;
         std::string hash = md5(hash_str);
 
-        std::cout << "asd: " << std::stoi(hash, 0, 64) << std::endl;
+        std::cout << "Hash: " << hash << std::endl;
+        if (hash < smallest_hash) {
+            smallest_hash = hash;
+            j = i;
+        }
 
-    //    if ( std::stoi(hash) < std::stoi(smallest_hash) ) {
-    //        std::cout << "string: " << s << std::endl;
-    //        std::cout << "hash: " << hash << std::endl;
-    //    }
     }
+
+    std::cout << "Smallest hash: " << smallest_hash << std::endl;
+    std::cout << "Prefix: " << j << std::endl;
 
 	return 0;
 }

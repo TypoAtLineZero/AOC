@@ -8,13 +8,9 @@
 int main() {
 	std::string hash_pre = "yzbqklnj";
     // hash_pre + 000000
-    std::string smallest_hash = "c0bb7d0da218980856cdfc89a67c1669";
+    std::string smallest_hash = "c6404eeb31cf4da2e4b224ebc03aea10";
+    //std::string smallest_hash = "c0bb7d0da218980856cdfc89a67c1669";
     std::cout << "smallest: " << std::stoi(smallest_hash, 0, 64) << std::endl;
-    std::stringstream ss;
-    int j;
-    ss << std::hex << smallest_hash;
-    ss >> j;
-    std::cout << j << std::endl;
 
     for ( int i = 0; i < 11; ++i) {
         auto s = std::to_string(i);

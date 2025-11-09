@@ -11,7 +11,8 @@ int main() {
     std::cout << "smallest: " << std::stoi(smallest_hash, 0, 64) << std::endl;
     int j;
 
-    for ( int i = 0; i < 1000000; ++i) {
+    for ( int i = 0; i < 1000000; ++i) {        // loop for p1
+    //for ( int i = 0; i < 10000000; ++i) {     // loop for p2
         auto s = std::to_string(i);
 
         if ( int(s.size()) < 6 ) {

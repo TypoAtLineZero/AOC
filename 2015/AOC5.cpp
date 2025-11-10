@@ -1,30 +1,31 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
-#include <algorithm>
-using namespace std;
+#include <regex>
 
 int main() {
-    string filename="AOC5_input";
-
-    ifstream file(filename);
+    std::string filename="AOC5_input";
+    std::ifstream file(filename);
+   
     if (!file.is_open()) {
-        cerr << "Error opening the file." << endl;
+        std::cerr << "Error opening the file." << std::endl;
         return 1;
     }
 
-    long total_paper = 0; // Wrapping paper
-    long total_ribbon = 0; // Ribbon
-    string line;
+    std::string line;
+    int vowels;
+    int happy = 0;
 
     while (getline(file, line)) {
-        vector<int> dimensions;
-        stringstream ss(line);
-        string part;
+        vowels = 0;
+        for (int i = 0; line[i]!='\0'; ++i) {
+            if (line[i] == 'a' || line[i] == 'e' || line[i] == 'i' || line[i] == 'o' || line[i] == 'u') {
+                ++vowels;
+                std::cout << "line: " << line << std::endl;
+                std::cout << "vowels: " << vowels << std::endl;
+            }
+        }
     }
     
     return 0;
 }
-
-

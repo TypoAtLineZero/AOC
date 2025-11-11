@@ -19,32 +19,32 @@ int main() {
     bool subString;
 
     // doubleLetter - wanted
-    std::string subString1 = "aa";
-    std::string subString2 = "bb";
-    std::string subString3 = "cc";
-    std::string subString4 = "dd";
-    std::string subString5 = "ee";
-    std::string subString6 = "ff";
-    std::string subString7 = "gg";
-    std::string subString8 = "hh";
-    std::string subString9 = "ii";
-    std::string subString10 = "jj";
-    std::string subString11 = "kk";
-    std::string subString12 = "ll";
-    std::string subString13 = "mm";
-    std::string subString14 = "nn";
-    std::string subString15 = "oo";
-    std::string subString16 = "pp";
-    std::string subString17 = "qq";
-    std::string subString18 = "rr";
-    std::string subString19 = "ss";
-    std::string subString20 = "tt";
-    std::string subString21 = "uu";
-    std::string subString22 = "vv";
-    std::string subString23 = "ww";
-    std::string subString24 = "xx";
-    std::string subString25 = "yy";
-    std::string subString26 = "zz";
+    std::string doubleLetter1 = "aa";
+    std::string doubleLetter2 = "bb";
+    std::string doubleLetter3 = "cc";
+    std::string doubleLetter4 = "dd";
+    std::string doubleLetter5 = "ee";
+    std::string doubleLetter6 = "ff";
+    std::string doubleLetter7 = "gg";
+    std::string doubleLetter8 = "hh";
+    std::string doubleLetter9 = "ii";
+    std::string doubleLetter10 = "jj";
+    std::string doubleLetter11 = "kk";
+    std::string doubleLetter12 = "ll";
+    std::string doubleLetter13 = "mm";
+    std::string doubleLetter14 = "nn";
+    std::string doubleLetter15 = "oo";
+    std::string doubleLetter16 = "pp";
+    std::string doubleLetter17 = "qq";
+    std::string doubleLetter18 = "rr";
+    std::string doubleLetter19 = "ss";
+    std::string doubleLetter20 = "tt";
+    std::string doubleLetter21 = "uu";
+    std::string doubleLetter22 = "vv";
+    std::string doubleLetter23 = "ww";
+    std::string doubleLetter24 = "xx";
+    std::string doubleLetter25 = "yy";
+    std::string doubleLetter26 = "zz";
     
     // subString - Not wanted
     std::string subString_1 = "ab";
@@ -56,13 +56,11 @@ int main() {
     while (getline(file, line)) {
         vowels = 0;
         doubleLetter = false;
-        subString = true;
+        subString = false;
 
         for (int i = 0; line[i]!='\0'; ++i) {
             if (line[i] == 'a' || line[i] == 'e' || line[i] == 'i' || line[i] == 'o' || line[i] == 'u') {
                 ++vowels;
-                std::cout << "line: " << line << std::endl;
-                std::cout << "vowels: " << vowels << std::endl;
             }
         }
         
@@ -70,20 +68,41 @@ int main() {
                 line.find(subString_2) != std::string::npos || 
                 line.find(subString_3) != std::string::npos || 
                 line.find(subString_4) != std::string::npos) {
-            std::cout << "here" << std::endl;
-            subString = false;
+            subString = true;
         }
 
-        if (line.find(subString1) != std::string::npos || 
-                line.find(subString2) != std::string::npos || 
-                line.find(subString3) != std::string::npos || 
-                line.find(subString4) != std::string::npos) {
-            std::cout << "here" << std::endl;
+        if (line.find(doubleLetter1) != std::string::npos || 
+                line.find(doubleLetter2) != std::string::npos || 
+                line.find(doubleLetter3) != std::string::npos || 
+                line.find(doubleLetter4) != std::string::npos ||
+                line.find(doubleLetter5) != std::string::npos ||
+                line.find(doubleLetter6) != std::string::npos ||
+                line.find(doubleLetter7) != std::string::npos ||
+                line.find(doubleLetter8) != std::string::npos ||
+                line.find(doubleLetter9) != std::string::npos ||
+                line.find(doubleLetter10) != std::string::npos ||
+                line.find(doubleLetter11) != std::string::npos ||
+                line.find(doubleLetter12) != std::string::npos ||
+                line.find(doubleLetter13) != std::string::npos ||
+                line.find(doubleLetter14) != std::string::npos ||
+                line.find(doubleLetter15) != std::string::npos ||
+                line.find(doubleLetter16) != std::string::npos ||
+                line.find(doubleLetter17) != std::string::npos ||
+                line.find(doubleLetter18) != std::string::npos ||
+                line.find(doubleLetter19) != std::string::npos ||
+                line.find(doubleLetter20) != std::string::npos ||
+                line.find(doubleLetter21) != std::string::npos ||
+                line.find(doubleLetter22) != std::string::npos ||
+                line.find(doubleLetter23) != std::string::npos ||
+                line.find(doubleLetter24) != std::string::npos ||
+                line.find(doubleLetter25) != std::string::npos ||
+                line.find(doubleLetter26) != std::string::npos) {
             doubleLetter = true;
         }
 
         if (vowels > 2 && subString == false && doubleLetter == true) {
             ++happy;
+            std::cout << line << std::endl;
         }
     }
 

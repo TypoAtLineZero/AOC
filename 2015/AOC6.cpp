@@ -17,10 +17,11 @@ int main() {
     std::string part;
     
     bool grid[1000][1000] = {false};
+    int coord[4];
     std::vector<std::string> numbers;
     
     while (getline(file, line)) {
-
+        int i = 0;
         // Extract potential numbers from the string
         std::string currentNumber;
         for (char c : line) {
@@ -35,11 +36,18 @@ int main() {
         }
         if (!currentNumber.empty()) {
             numbers.push_back(currentNumber);
+            coord[i] = std::stoi(currentNumber);
         }
+        ++i;
 
         for(const std::string& i : numbers) {
             std::cout << "i = " << i << std::endl;
         }
+
+        for (int j=0; j<4; ++j) {
+            std::cout << "coords = " << coord[j] << std::endl;
+        }
+
 
         if (line.find("on") != std::string::npos) {
         }

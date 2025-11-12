@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <regex>
 
 int main() {
     std::string filename="AOC6_input";
@@ -19,7 +20,10 @@ int main() {
     while (getline(file, line)) {
         // Split each dimension by 'x'
         //while (getline(ss, part, 'x')) {
-        
+        std::string coord1 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$1"));
+        std::string coord2 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$2"));
+        std::string coord3 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$3"));
+        std::string coord4 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$4"));
 
         if (line.find("on") != std::string::npos) {
         }

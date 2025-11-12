@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <regex>
+#include <cassert>
 
 int main() {
     std::string filename="AOC6_input";
@@ -16,14 +17,29 @@ int main() {
     std::string part;
     
     bool grid[1000][1000] = {false};
+    std::vector<std::string> numbers;
     
     while (getline(file, line)) {
-        // Split each dimension by 'x'
-        //while (getline(ss, part, 'x')) {
-        std::string coord1 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$1"));
-        std::string coord2 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$2"));
-        std::string coord3 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$3"));
-        std::string coord4 = std::regex_replace(line, std::regex("[^0-9]*([0-9]+).*"), std::string("$4"));
+
+        // Extract potential numbers from the string
+        std::string currentNumber;
+        for (char c : line) {
+            if (isdigit(c)) {
+                currentNumber += c;
+            } else {
+                if (!currentNumber.empty()) {
+                    numbers.push_back(currentNumber);
+                    currentNumber = "";
+                }
+            }
+        }
+        if (!currentNumber.empty()) {
+            numbers.push_back(currentNumber);
+        }
+
+        for(const std::string& i : numbers) {
+            std::cout << "i = " << i << std::endl;
+        }
 
         if (line.find("on") != std::string::npos) {
         }

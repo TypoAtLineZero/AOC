@@ -22,7 +22,7 @@ int main() {
     
     while (getline(file, line)) {
         int i = 0;
-        // Extract potential numbers from the string
+        
         std::string currentNumber;
         for (char c : line) {
             if (isdigit(c)) {
@@ -30,7 +30,9 @@ int main() {
             } else {
                 if (!currentNumber.empty()) {
                     numbers.push_back(currentNumber);
+                    coord[i] = std::stoi(currentNumber);
                     currentNumber = "";
+                    ++i;
                 }
             }
         }
@@ -38,7 +40,6 @@ int main() {
             numbers.push_back(currentNumber);
             coord[i] = std::stoi(currentNumber);
         }
-        ++i;
 
         for(const std::string& i : numbers) {
             std::cout << "i = " << i << std::endl;

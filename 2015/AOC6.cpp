@@ -41,27 +41,56 @@ int main() {
             coord[i] = std::stoi(currentNumber);
         }
 
-        for(const std::string& i : numbers) {
-            std::cout << "i = " << i << std::endl;
-        }
-
-        for (int j=0; j<4; ++j) {
-            std::cout << "coords = " << coord[j] << std::endl;
-        }
-
+//        for(const std::string& i : numbers) {
+//            std::cout << "i = " << i << std::endl;
+//        }
+//
+//        for (int j=0; j<4; ++j) {
+//            std::cout << "coords = " << coord[j] << std::endl;
+//        }
+//
+        int xStart = coord[0];
+        int yStart = coord[1];
+        int xEnd = coord[2];
+        int yEnd = coord[3];
 
         if (line.find("on") != std::string::npos) {
+            for (int i = xStart; i <= xEnd; ++i) {
+                for (int j = yStart; j <= yEnd ; ++j) {
+                    grid[i][j] = true;
+                }
+            }
         }
         
         if (line.find("off") != std::string::npos) {
+            for (int i = xStart; i <= xEnd; ++i) {
+                for (int j = yStart; j <= yEnd ; ++j) {
+                    grid[i][j] = false;
+                }
+            }
         }
 
         if (line.find("toggle") != std::string::npos) {
+            for (int i = xStart; i <= xEnd; ++i) {
+                for (int j = yStart; j <= yEnd ; ++j) {
+                    grid[i][j] = !grid[i][j];
+                }
+            }
         }
     }
 
     file.close();
+    
+    int counter = 0;
+    for (int ii = 0; ii < 1000; ++ii ) {
+        for (int jj = 0; jj < 1000; ++jj) {
+            if (grid[ii][jj] == true) {
+                ++counter;
+            }
+        }
+    }
 
+    std::cout << "Counter: " << counter << std::endl;
     return 0;
 }
 

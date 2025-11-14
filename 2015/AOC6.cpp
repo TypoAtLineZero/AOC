@@ -41,14 +41,6 @@ int main() {
             coord[i] = std::stoi(currentNumber);
         }
 
-//        for(const std::string& i : numbers) {
-//            std::cout << "i = " << i << std::endl;
-//        }
-//
-//        for (int j=0; j<4; ++j) {
-//            std::cout << "coords = " << coord[j] << std::endl;
-//        }
-//
         int xStart = coord[0];
         int yStart = coord[1];
         int xEnd = coord[2];
@@ -91,6 +83,11 @@ int main() {
     }
 
     std::cout << "Counter: " << counter << std::endl;
+
+    uint a = 0;
+    std::cout << "a: " << a << std::endl;
+    a = a - 1;
+    std::cout << "a: " << a << std::endl;
     return 0;
 }
 

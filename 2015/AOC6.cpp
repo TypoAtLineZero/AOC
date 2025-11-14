@@ -17,6 +17,7 @@ int main() {
     std::string part;
     
     bool grid[1000][1000] = {false};
+    int gridp2[1000][1000] = {0};
     int coord[4];
     std::vector<std::string> numbers;
     
@@ -50,6 +51,7 @@ int main() {
             for (int i = xStart; i <= xEnd; ++i) {
                 for (int j = yStart; j <= yEnd ; ++j) {
                     grid[i][j] = true;
+                    gridp2[i][j] += 1;
                 }
             }
         }
@@ -58,6 +60,9 @@ int main() {
             for (int i = xStart; i <= xEnd; ++i) {
                 for (int j = yStart; j <= yEnd ; ++j) {
                     grid[i][j] = false;
+                    if (gridp2[i][j] > 0) {
+                        gridp2[i][j] -= 1;
+                    }
                 }
             }
         }
@@ -66,6 +71,7 @@ int main() {
             for (int i = xStart; i <= xEnd; ++i) {
                 for (int j = yStart; j <= yEnd ; ++j) {
                     grid[i][j] = !grid[i][j];
+                    gridp2[i][j] += 2;
                 }
             }
         }
@@ -74,6 +80,9 @@ int main() {
     file.close();
     
     int counter = 0;
+    int counterp2 = 0;
+    
+    // Part 1 loop
     for (int ii = 0; ii < 1000; ++ii ) {
         for (int jj = 0; jj < 1000; ++jj) {
             if (grid[ii][jj] == true) {
@@ -82,12 +91,15 @@ int main() {
         }
     }
 
-    std::cout << "Counter: " << counter << std::endl;
+    // Part 2 loop
+    for (int ii = 0; ii < 1000; ++ii ) {
+        for (int jj = 0; jj < 1000; ++jj) {
+            counterp2 += gridp2[ii][jj];
+        }
+    }
 
-    uint a = 0;
-    std::cout << "a: " << a << std::endl;
-    a = a - 1;
-    std::cout << "a: " << a << std::endl;
+    std::cout << "Counter: " << counter << std::endl;
+    std::cout << "Counter 2: " << counterp2 << std::endl;
     return 0;
 }
 

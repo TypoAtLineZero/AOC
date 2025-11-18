@@ -5,7 +5,7 @@
 #include <cassert>
 
 int main() {
-    std::string filename="AOC6_input";
+    std::string filename="AOC07_input";
     std::ifstream file(filename);
    
     if (!file.is_open()) {

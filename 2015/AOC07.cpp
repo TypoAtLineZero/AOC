@@ -1,86 +1,157 @@
-#include <fstream>
+// Compile with: g++ -O -std=c++11 -o day07 day07.cc
+// Run as: ./day07 < day07.txt
 #include <iostream>
+#include <map>
+#include <regex>
 #include <string>
-#include <vector>  
-#include <unordered_map>  
-#include <optional>   
+#include <algorithm>
+#include <cctype>
 #include <cstdint>
 
-std::optional<uint16_t> get_value(const std::string& input, const std::unordered_map<std::string, uint16_t>& vars) {
-  if (std::isdigit(input[0])) return std::stoi(input);
-  const auto it = vars.find(input);
-  return (it == vars.end()) ? std::nullopt : std::optional<uint16_t>(it->second);
+enum OPS {
+    OP_ERR, OP_AND, OP_OR, OP_NOT, OP_LSHIFT, OP_RSHIFT, OP_STORE 
+};
+
+bool isnumber(const std::string &n) {
+    return std::all_of(n.begin(), n.end(), ::isdigit);
 }
 
-int main(int argc, char* argv[]) {
-  std::string input = "AOC07_input";
-  if (argc > 1) {
-    input = argv[1];
-  }
+OPS stoop(const std::string s) {
+    if (s == "AND")
+        return OP_AND;
+    else if (s == "OR")
+        return OP_OR;
+    else if (s == "LSHIFT")
+        return OP_LSHIFT;
+    else if (s == "RSHIFT")
+        return OP_RSHIFT;
+    else
+        return OP_ERR;
+}
 
-  std::ifstream file(input);
-  std::string line;
-  std::unordered_map<std::string, uint16_t> vars;
-  std::vector<std::vector<std::string>> connections;
-  while(std::getline(file, line)) {
-    std::vector<std::string> connection;
-    const std::string delimiter = " ";
-    size_t start = 0;
-    size_t end = line.find(delimiter);
-    while (end != std::string::npos) {
-      connection.push_back(line.substr(start, end - start));
-      start = end + 1;
-      end = line.find(delimiter, start);
+using stype = std::uint16_t;
+
+struct gate {
+    OPS op;
+    std::string lhs;
+    std::string rhs;
+    bool memoized;
+    stype val;
+    gate(void) : op(OP_ERR), lhs(""), rhs(""), memoized(false), val(0) {}
+};
+
+class logic {
+        std::map<std::string, gate> circuit;
+        stype output_of(const std::string &);
+    public:
+        stype find_output(const std::string &);
+        void dump(void);
+        void reset(void);
+        std::map<std::string, gate>::size_type size(void) { return circuit.size(); }
+        void add(const std::string &wire, gate g) { circuit[wire] = g; }
+        gate& find_gate(const std::string &wire) { return circuit[wire]; }
+};  
+
+stype logic::output_of(const std::string &num_or_wire) {
+    if (isnumber(num_or_wire))
+        return std::stoi(num_or_wire);
+    else
+        return find_output(num_or_wire);
+}
+
+stype logic::find_output(const std::string &wire) {
+    if (circuit.find(wire) == circuit.end()) {
+        std::cerr << "Unknown wire '" << wire << "'\n";
+        return 0;
     }
-    connection.push_back(line.substr(start, line.size() - start));
-    connections.push_back(connection);
-  }
-  // This can be made more efficient, 
-  // can construct the circuit rather than 
-  // running the loop until the value of a is set
-  // which runs the instructions multiple times
-  while(vars.find("a") == vars.end()) {
-    for (const auto connection : connections){
-        std::optional<uint16_t> val1 = 0;
-        std::optional<uint16_t> val2 = 0;
-        if (connection.size() == 3) {
-            val1 = get_value(connection[0], vars);
-            if (val1) {
-              vars[connection[2]] = val1.value();
-            }
+
+    gate &g = circuit[wire];
+    if (g.memoized) {
+        return g.val;
+    } else {
+        stype r;
+        switch (g.op) {
+            case OP_ERR:
+                std::cerr << "Unknown gate operation for wire " << wire << '\n';
+                return 0;
+            case OP_STORE:
+                r = output_of(g.lhs);
+                break;
+            case OP_AND:
+                r = output_of(g.lhs) & output_of(g.rhs);
+                break;
+            case OP_OR:
+                r = output_of(g.lhs) | output_of(g.rhs);
+                break;
+            case OP_LSHIFT:
+                r = output_of(g.lhs) << output_of(g.rhs);
+                break;
+            case OP_RSHIFT:
+                r = output_of(g.lhs) >> output_of(g.rhs);
+                break;
+            case OP_NOT:
+                r = ~output_of(g.lhs);
+                break;
         }
-        else if (connection.size() == 4 && connection[0] == "NOT") {
-            val1 = get_value(connection[1], vars);
-            if (val1) {
-              vars[connection[3]] = ~val1.value();
-            }
-        }
-        else if (connection.size() == 5 && connection[1] == "AND") {
-            val1 = get_value(connection[0], vars);
-            val2 = get_value(connection[2], vars);
-            if (val1 && val2)  vars[connection[4]] = val1.value() & val2.value();
-        }
-        else if (connection.size() == 5 && connection[1] == "OR") {
-          val1 = get_value(connection[0], vars);
-          val2 = get_value(connection[2], vars);
-          if (val1 && val2)  vars[connection[4]] = val1.value() | val2.value();
-        }
-        else if (connection.size() == 5 && connection[1] == "LSHIFT") {
-          val1 = get_value(connection[0], vars);
-          val2 = get_value(connection[2], vars);
-          if (val1 && val2)  vars[connection[4]] = val1.value() << val2.value();
-        }
-        else if (connection.size() == 5 && connection[1] == "RSHIFT") {
-          val1 = get_value(connection[0], vars);
-          val2 = get_value(connection[2], vars);
-          if (val1 && val2)  vars[connection[4]] = val1.value() >> val2.value();
-        }
-        else {
-            std::cout << line << '\n';
-            std::cout << "This should not happen" << '\n';
+        g.memoized = true;
+        g.val = r;
+        return r;
+    }
+}
+
+void logic::dump(void) {
+    for (auto &wires : circuit)
+        std::cout << wires.first << ": " << find_output(wires.first) << '\n';
+}
+
+void logic::reset(void) {
+    for (auto &gate : circuit)
+        gate.second.memoized = false;
+}
+
+int main(void) {
+    std::string command;
+    logic circuit;
+    std::regex assign_op{ "(\\w+) -> (\\w+)" };
+    std::regex not_op{ "NOT (\\w+) -> (\\w+)" };
+    std::regex binary_op{ "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
+    
+    while (std::getline(std::cin, command)) {
+        std::smatch fields;
+        gate g;
+        if (std::regex_match(command, fields, assign_op)) {
+            g.op = OP_STORE;
+            g.lhs = fields[1];
+            circuit.add(fields[2], g);
+        } else if (std::regex_match(command, fields, not_op)) {
+            g.op = OP_NOT;
+            g.lhs = fields[1];
+            circuit.add(fields[2], g);
+        } else if (std::regex_match(command, fields, binary_op)) {
+            g.op = stoop(fields[2]);
+            g.lhs = fields[1];
+            g.rhs = fields[3];
+            circuit.add(fields[4], g);
+        } else {
+            std::cerr << "Unknown gate: " << command << '\n';
         }
     }
-  }
-  std::cout << vars["a"] << '\n';
-  return 0;
+    
+    std::cout << "There are a total of " << circuit.size() << " gates.\n";
+    
+    stype a = circuit.find_output("a");
+    std::cout << "Initial value of a: " << a << '\n';
+    
+    circuit.reset();
+    gate b;
+    b.op = OP_STORE;
+    b.lhs = std::to_string(a);
+    b.memoized = true;
+    b.val = a;
+    circuit.add("b", b);
+    
+    a = circuit.find_output("a");
+    std::cout << "New value of a: " << a;
+    
+    return 0;
 }

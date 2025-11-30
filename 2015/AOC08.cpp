@@ -4,10 +4,10 @@
 #include <fstream>
 #include <string>
 #include <cstdint>
-
+#include <regex>
 
 int main(void) {
-    std::string filename="AOC08_input";
+    std::string filename="AOC08_short";
 
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -21,6 +21,7 @@ int main(void) {
 
     while (std::getline(file, line)) {
         std::cout << line << std::endl;
+        std::cout << "Characters: " << line.length() << std::endl;
     }
 
     return 0;

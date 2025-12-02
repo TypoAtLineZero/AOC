@@ -13,13 +13,24 @@ int main(void) {
         return 1;
     }
 
-    long total_paper = 0; // Wrapping paper
-    long total_ribbon = 0; // Ribbon
     std::string line;
+    std::string backslash = "\\";
+    std::string highcomma = "\"";
+    std::size_t found;
 
     while (std::getline(file, line)) {
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
+
+        found = line.find(backslash);
+        if (found != std::string::npos) {
+            std::cout << "found 1: " << std::endl;
+        }
+
+        found = line.find(highcomma);
+        if (found != std::string::npos) {
+            std::cout << "found 2: " << std::endl;
+        }
 
         // cases for finding characters
         // starting and ending "

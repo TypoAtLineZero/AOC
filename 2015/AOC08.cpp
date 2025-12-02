@@ -1,5 +1,3 @@
-// Compile with: g++ -O -std=c++11 -o day07 day07.cc
-// Run as: ./day07 < day07.txt
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,6 +20,12 @@ int main(void) {
     while (std::getline(file, line)) {
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
+
+        // cases for finding characters
+        // starting and ending "
+        // \\   - double backslash
+        // \x$$ - some hexadecimal value
+        // \"   - escaped "
     }
 
     return 0;

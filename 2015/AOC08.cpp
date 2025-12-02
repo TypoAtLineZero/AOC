@@ -18,7 +18,7 @@ int main(void) {
     std::string highcomma = "\"";
     std::size_t found;
 
-    std::regex specialChars { R"([\\])" };
+    std::regex specialChars { R"([x][0-9][0-9])" };
     //std::regex specialChars { R"([-[\]{}()*+?.,\^$|#\s])" };
 
     while (std::getline(file, line)) {

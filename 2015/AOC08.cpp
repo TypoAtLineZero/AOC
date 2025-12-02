@@ -18,25 +18,23 @@ int main(void) {
     std::string highcomma = "\"";
     std::size_t found;
 
+    std::regex specialChars { R"([\\])" };
+    //std::regex specialChars { R"([-[\]{}()*+?.,\^$|#\s])" };
+
     while (std::getline(file, line)) {
+        bool found1 = std::regex_search(line, specialChars);
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
 
-        found = line.find(backslash);
-        if (found != std::string::npos) {
+        if (found1) {
             std::cout << "found 1: " << std::endl;
         }
 
-        found = line.find(highcomma);
-        if (found != std::string::npos) {
-            std::cout << "found 2: " << std::endl;
-        }
-
-        // cases for finding characters
         // starting and ending "
         // \\   - double backslash
         // \x$$ - some hexadecimal value
         // \"   - escaped "
+        std::cout << " ============ " << std::endl;
     }
 
     return 0;

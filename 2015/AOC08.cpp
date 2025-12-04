@@ -14,13 +14,16 @@ int main(void) {
     }
 
     std::string line;
-    std::regex hexNum { R"([x][0-9][0-9])" };
+    std::regex hexNum { R"([\\][x][0-9][0-9])" };
+    std::regex hexNum2("([\\][x][0-9][0-9])");
     std::regex doubleBackslash { R"([\\][\\])" };
     std::regex doubleQuote { R"([\\][\"])" };
+    std::smatch sm;
+    std::smatch sm2;
+
     bool foundHexNum;
     bool foundDoubleBackslash;
     bool foundDoubleQuote;
-
     int counterHexNum;
     int counterDoubleBackslash;
     int counterDoubleQuote;
@@ -28,15 +31,22 @@ int main(void) {
     while (std::getline(file, line)) {
         bool foundHexNum = false;
         bool foundDoubleBackslash = false;
+        bool foundDoubleQuote = false;
 
         foundHexNum = std::regex_search(line, hexNum);
+        std::regex_match(line, sm, hexNum);
+        std::regex_match(line, sm2, hexNum2);
+       
         foundDoubleBackslash = std::regex_search(line, doubleBackslash);
         foundDoubleQuote = std::regex_search(line, doubleQuote);
+        
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
 
         if (foundHexNum) {
             std::cout << "found Hexnum" << std::endl;
+            std::cout << "hexnum counter: " << sm.size() << std::endl;
+            std::cout << "hexnum counter 2: " << sm2.size() << std::endl;
         }
         
         if (foundDoubleBackslash) {

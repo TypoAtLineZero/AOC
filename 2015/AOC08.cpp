@@ -46,7 +46,7 @@ int main(void) {
         if (foundHexNum) {
             std::cout << "found Hexnum" << std::endl;
             std::cout << "hexnum counter: " << sm.size() << std::endl;
-            std::cout << "hexnum counter 2: " << sm2.size() << std::endl;
+            std::cout << "hexnum counter 2: " << sm2.position() << std::endl;
         }
         
         if (foundDoubleBackslash) {

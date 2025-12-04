@@ -18,22 +18,32 @@ int main(void) {
     std::string highcomma = "\"";
     std::size_t found;
 
-    std::regex specialChars { R"([x][0-9][0-9])" };
+    std::regex hexNum { R"([x][0-9][0-9])" };
+    std::regex doubleBackslash { R"([\\][\\])" };
     //std::regex specialChars { R"([-[\]{}()*+?.,\^$|#\s])" };
 
     while (std::getline(file, line)) {
-        bool found1 = std::regex_search(line, specialChars);
+        bool foundHexNum = false;
+        bool foundDoubleBackslash = false;
+
+        foundHexNum = std::regex_search(line, hexNum);
+        foundDoubleBackslash = std::regex_search(line, doubleBackslash);
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
 
-        if (found1) {
-            std::cout << "found 1: " << std::endl;
+        if (foundHexNum) {
+            std::cout << "found Hexnum" << std::endl;
+        }
+        
+        if (foundDoubleBackslash) {
+            std::cout << "found double Backslash" << std::endl;
         }
 
         // starting and ending "
         // \\   - double backslash
         // \x$$ - some hexadecimal value
         // \"   - escaped "
+        
         std::cout << " ============ " << std::endl;
     }
 

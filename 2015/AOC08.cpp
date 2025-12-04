@@ -14,13 +14,16 @@ int main(void) {
     }
 
     std::string line;
-    std::string backslash = "\\";
-    std::string highcomma = "\"";
-    std::size_t found;
-
     std::regex hexNum { R"([x][0-9][0-9])" };
     std::regex doubleBackslash { R"([\\][\\])" };
-    //std::regex specialChars { R"([-[\]{}()*+?.,\^$|#\s])" };
+    std::regex doubleQuote { R"([\\][\"])" };
+    bool foundHexNum;
+    bool foundDoubleBackslash;
+    bool foundDoubleQuote;
+
+    int counterHexNum;
+    int counterDoubleBackslash;
+    int counterDoubleQuote;
 
     while (std::getline(file, line)) {
         bool foundHexNum = false;
@@ -28,6 +31,7 @@ int main(void) {
 
         foundHexNum = std::regex_search(line, hexNum);
         foundDoubleBackslash = std::regex_search(line, doubleBackslash);
+        foundDoubleQuote = std::regex_search(line, doubleQuote);
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
 
@@ -37,8 +41,12 @@ int main(void) {
         
         if (foundDoubleBackslash) {
             std::cout << "found double Backslash" << std::endl;
-        }
+       }
 
+        if (foundDoubleQuote) {
+            std::cout << "found double Quote" << std::endl;
+       }
+         
         // starting and ending "
         // \\   - double backslash
         // \x$$ - some hexadecimal value

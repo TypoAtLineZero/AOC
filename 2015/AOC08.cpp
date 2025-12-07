@@ -5,7 +5,7 @@
 #include <regex>
 
 int main(void) {
-    std::string filename="AOC08_short";
+    std::string filename="AOC08_input";
 
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -27,6 +27,8 @@ int main(void) {
     int counterDoubleBackslash;
     int counterDoubleQuote;
     int counterOverall = 0;
+    int counterOverallPlus = 0;
+    int counterOverallMinus = 0;
 
     while (std::getline(file, line)) {
         bool foundHexNum = false;
@@ -66,13 +68,15 @@ int main(void) {
         // \x$$ - some hexadecimal value
         // \"   - escaped "
         
-        counterOverall += line.length();
-        counterOverall -= matchCountHexNum * 4;
-        counterOverall -= matchCountBackslash * 2;
-        counterOverall -= matchCountDoubleQuote * 2;
-        std::cout << "Current counter: " << counterOverall << std::endl;
+        counterOverallPlus += line.length();
+        counterOverallMinus += matchCountHexNum;
+        counterOverallMinus += matchCountBackslash;
+        counterOverallMinus += matchCountDoubleQuote;
+        counterOverallMinus += 2;
         std::cout << " ============ " << std::endl;
     }
-
+    
+    counterOverall = counterOverallPlus - counterOverallMinus;
+    std::cout << "Current counter: " << counterOverall << std::endl;
     return 0;
 }

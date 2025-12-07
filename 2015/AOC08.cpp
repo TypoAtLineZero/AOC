@@ -31,6 +31,8 @@ int main(void) {
     int counterOverallMinus = 0;
 
     while (std::getline(file, line)) {
+        //counterOverallPlus = 0;
+        //counterOverallMinus = 0;
         bool foundHexNum = false;
         bool foundDoubleBackslash = false;
         bool foundDoubleQuote = false;
@@ -47,7 +49,8 @@ int main(void) {
         
         std::cout << line << std::endl;
         std::cout << "Characters: " << line.length() << std::endl;
-
+        
+       /* 
         if (foundHexNum) {
             std::cout << "found Hexnum" << std::endl;
             std::cout << matchCountHexNum << std::endl;
@@ -62,17 +65,17 @@ int main(void) {
             std::cout << "found double Quote" << std::endl;
             std::cout << matchCountDoubleQuote << std::endl;
        }
-         
+       */ 
         // starting and ending "
         // \\   - double backslash
         // \x$$ - some hexadecimal value
         // \"   - escaped "
         
         counterOverallPlus += line.length();
-        counterOverallMinus += matchCountHexNum;
-        counterOverallMinus += matchCountBackslash;
-        counterOverallMinus += matchCountDoubleQuote;
-        counterOverallMinus += 2;
+        counterOverallMinus += line.length() - 2 - (matchCountHexNum * 3) - (matchCountBackslash) - (matchCountDoubleQuote);
+        std::cout << " counterPlus: " << counterOverallPlus << std::endl;
+        std::cout << " counterMinus: " << counterOverallMinus << std::endl;
+
         std::cout << " ============ " << std::endl;
     }
     

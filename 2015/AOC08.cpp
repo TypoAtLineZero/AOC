@@ -26,6 +26,7 @@ int main(void) {
     int counterHexNum;
     int counterDoubleBackslash;
     int counterDoubleQuote;
+    int counterOverall = 0;
 
     while (std::getline(file, line)) {
         bool foundHexNum = false;
@@ -65,6 +66,11 @@ int main(void) {
         // \x$$ - some hexadecimal value
         // \"   - escaped "
         
+        counterOverall += line.length();
+        counterOverall -= matchCountHexNum * 4;
+        counterOverall -= matchCountBackslash * 2;
+        counterOverall -= matchCountDoubleQuote * 2;
+        std::cout << "Current counter: " << counterOverall << std::endl;
         std::cout << " ============ " << std::endl;
     }
 

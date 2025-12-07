@@ -47,15 +47,17 @@ int main(void) {
 
         if (foundHexNum) {
             std::cout << "found Hexnum" << std::endl;
-            std::cout << match_count << std::endl;
+            std::cout << matchCountHexNum << std::endl;
         }
         
         if (foundDoubleBackslash) {
             std::cout << "found double Backslash" << std::endl;
+            std::cout << matchCountBackslash << std::endl;
        }
 
         if (foundDoubleQuote) {
             std::cout << "found double Quote" << std::endl;
+            std::cout << matchCountDoubleQuote << std::endl;
        }
          
         // starting and ending "

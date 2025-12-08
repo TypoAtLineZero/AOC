@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdint>
 #include <regex>
+#include <vector>
 
 int main(void) {
     std::string filename="AOC08_input";
@@ -29,10 +30,12 @@ int main(void) {
     int counterOverall = 0;
     int counterOverallPlus = 0;
     int counterOverallMinus = 0;
+    std::vector<int> overallPlus;
+    std::vector<int> overallMinus;
 
     while (std::getline(file, line)) {
-        //counterOverallPlus = 0;
-        //counterOverallMinus = 0;
+        counterOverallPlus = 0;
+        counterOverallMinus = 0;
         bool foundHexNum = false;
         bool foundDoubleBackslash = false;
         bool foundDoubleQuote = false;
@@ -48,7 +51,7 @@ int main(void) {
         foundDoubleQuote = std::regex_search(line, doubleQuote);
         
         std::cout << line << std::endl;
-        std::cout << "Characters: " << line.length() << std::endl;
+        //std::cout << "Characters: " << line.length() << std::endl;
         
        /* 
         if (foundHexNum) {
@@ -76,9 +79,26 @@ int main(void) {
         std::cout << " counterPlus: " << counterOverallPlus << std::endl;
         std::cout << " counterMinus: " << counterOverallMinus << std::endl;
 
+        overallPlus.push_back(counterOverallPlus);
+        overallMinus.push_back(counterOverallMinus);
+
         std::cout << " ============ " << std::endl;
     }
+
+    int sumPlus = 0;
+    int sumMinus = 0;
     
+    for (int i : overallPlus) {
+        sumPlus += i;
+    }
+
+    for (int ii : overallMinus) {
+        sumMinus += ii;
+    }
+
+    std::cout << sumPlus << std::endl;
+    std::cout << sumMinus << std::endl;
+
     counterOverall = counterOverallPlus - counterOverallMinus;
     std::cout << "Current counter: " << counterOverall << std::endl;
     return 0;

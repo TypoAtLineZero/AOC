@@ -1,0 +1,11 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <regex>
+#include <vector>
+
+int main(void) {
+    uint8_t input = 3113322113;
+
+    return 0;
+}

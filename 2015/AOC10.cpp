@@ -7,6 +7,7 @@
 
 int main(void) {
     uint64_t input = 3113322113;
+    std::vector<uint64_t> temp;
 
     return 0;
 }
